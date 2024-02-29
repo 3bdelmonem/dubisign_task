@@ -9,7 +9,7 @@
 
 ## APK
 
-- [Dubisign Task](https://github.com/3bdelmonem/dubisign_task/blob/main/apk/Dubisign%20Task.apk)
+- [Dubisign Task APK](https://drive.google.com/file/d/1C2tJIUSxH-Ix-4iEUYy8jdAd5ys9vlHI/view?usp=sharing)
 
 
 ## Installation steps
