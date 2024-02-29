@@ -1,0 +1,24 @@
+import 'package:flutter/material.dart';
+
+const Color white = Color(0xffFFFFFF);
+const Color black = Color(0xff000000);
+const Color grey1 = Color(0xffEEEEEE);
+const Color grey2 = Color(0xffE2E2E2);
+const Color grey3 = Color(0xffDEDEDE);
+const Color grey4 = Color(0xffC4C4C4);
+const Color grey5 = Color(0xff929292);
+const Color grey6 = Color(0xff888888);
+const Color grey7 = Color(0xff676767);
+const Color grey8 = Color(0xff757575);
+const Color grey9 = Color(0xff454545);
+const Color grey10 = Color(0xff565656);
+const Color grey11 = Color(0xff101010);
+const Color blue = Color(0xff187EDD);
+const Color lightBlue = Color(0xffEFF6FA);
+const Color red = Color(0xffE94041);
+const Color lightRed = Color(0xffF9F1F3);
+const Color purple1 = Color(0xff8370D8);
+const Color purple2 = Color(0xffD2758A);
+const Color purple3 = Color(0xffAE71AB);
+const Color transparent = Colors.transparent;
+LinearGradient gradient = const LinearGradient(colors: [purple1, purple2, purple3]);
