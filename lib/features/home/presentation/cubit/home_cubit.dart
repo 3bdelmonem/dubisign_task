@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dubisign_task/core/error/failures.dart';
-import 'package:dubisign_task/features/home/data/models/users_model.dart';
+import 'package:dubisign_task/features/home/domain/entities/user.dart';
 import 'package:dubisign_task/features/home/domain/usecases/get_users_usecase.dart';
 import 'package:equatable/equatable.dart';
 part 'home_state.dart';

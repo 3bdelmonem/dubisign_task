@@ -1,4 +1,4 @@
-import 'package:dubisign_task/features/home/data/models/users_model.dart';
+import 'package:dubisign_task/features/home/domain/entities/user.dart';
 import 'package:equatable/equatable.dart';
 
 class Users extends Equatable {
