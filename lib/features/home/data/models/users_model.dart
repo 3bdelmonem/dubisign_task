@@ -1,18 +1,12 @@
-import 'dart:convert';
+import 'package:dubisign_task/features/home/domain/entities/users.dart';
 
-UsersModel usersModelFromJson(String str) => UsersModel.fromJson(json.decode(str));
-class UsersModel {
-  final List<User> users;
-  final int total;
-  final int skip;
-  final int limit;
-
-  UsersModel({
-    required this.users,
-    required this.total,
-    required this.skip,
-    required this.limit,
-  });
+class UsersModel extends Users {
+  const UsersModel({
+    required List<User> users,
+    required int total,
+    required int skip,
+    required int limit,
+  }) : super(users: users, total: total, skip: skip, limit: limit);
 
   factory UsersModel.fromJson(Map<String, dynamic> json) => UsersModel(
     users: List<User>.from(json["users"].map((x) => User.fromJson(x))),
