@@ -2,6 +2,7 @@ import 'package:dubisign_task/core/constant/colors/app_colors.dart';
 import 'package:dubisign_task/core/constant/icons.dart';
 import 'package:dubisign_task/core/constant/styles/styles.dart';
 import 'package:dubisign_task/core/widgets/outline_border.dart';
+import 'package:dubisign_task/core/widgets/cached_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -52,10 +53,7 @@ class UsersListview extends StatelessWidget {
                       color: white,
                       borderRadius: BorderRadius.circular(12.r)
                     ),
-                    child: Image.network(
-                      image,
-                      fit: BoxFit.cover,
-                    )
+                    child: CustomImageWidget(image: image)
                   )
                 ),
               ),
