@@ -4,6 +4,7 @@ import 'package:dubisign_task/core/widgets/error_widget.dart';
 import 'package:dubisign_task/core/widgets/loading_widget.dart';
 import 'package:dubisign_task/features/home/presentation/cubit/home_cubit.dart';
 import 'package:dubisign_task/features/home/presentation/widgets/alert_dialog.dart';
+import 'package:dubisign_task/features/home/presentation/widgets/home_shimmer.dart';
 import 'package:dubisign_task/features/home/presentation/widgets/search.dart';
 import 'package:dubisign_task/features/home/presentation/widgets/stories_listview.dart';
 import 'package:dubisign_task/features/home/presentation/widgets/users_listview.dart';
@@ -41,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child:  BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) {
             if (state is GetAllUsersLoading) {
-              return const LoadingWidget();
+              return const HomeShimmer();
             }
             else if (state is GetAllUsersError) {
               return AppErrorWidget(message: state.message,);
