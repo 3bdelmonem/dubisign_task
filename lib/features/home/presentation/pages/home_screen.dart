@@ -41,13 +41,13 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child:  BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) {
+            final usersList = context.watch<HomeCubit>().users;
             if (state is GetAllUsersLoading) {
               return const HomeShimmer();
             }
             else if (state is GetAllUsersError) {
               return AppErrorWidget(message: state.message,);
             }
-            final usersList = context.watch<HomeCubit>().users;
             return SingleChildScrollView(
               padding: EdgeInsets.symmetric(vertical: 20.h),
               physics: const BouncingScrollPhysics(),
