@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
   @override
@@ -39,14 +38,21 @@ class _HomeScreenState extends State<HomeScreen> {
     TextEditingController searchController = TextEditingController();
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(vertical: 20.h),
-          physics: const BouncingScrollPhysics(),
-          controller: scrollController,
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-          child: Column(
-            children: [
-              Column(
+        child:  BlocBuilder<HomeCubit, HomeState>(
+          builder: (context, state) {
+            if (state is GetAllUsersLoading) {
+              return const LoadingWidget();
+            }
+            else if (state is GetAllUsersError) {
+              return AppErrorWidget(message: state.message,);
+            }
+            final usersList = context.watch<HomeCubit>().users;
+            return SingleChildScrollView(
+              padding: EdgeInsets.symmetric(vertical: 20.h),
+              physics: const BouncingScrollPhysics(),
+              controller: scrollController,
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              child: Column(
                 children: [
                   SizedBox(
                     height: 60.h,
@@ -56,11 +62,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       scrollDirection: Axis.horizontal,
                       itemCount: (context.watch<HomeCubit>().friends.length < 6) ? 6 : context.watch<HomeCubit>().friends.length,
                       itemBuilder: (context, index) {
-                        if (index >= context.watch<HomeCubit>().friends.length) {
-                          return const StoriesListview();
-                        } else {
-                          return StoriesListview(image: context.read<HomeCubit>().friends[index].image);
-                        }
+                        return (index >= context.watch<HomeCubit>().friends.length)?
+                        const StoriesListview() : StoriesListview(image: context.read<HomeCubit>().friends[index].image);
                       },
                     ),
                   ),
@@ -68,56 +71,41 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding:EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
                     child: Divider(color: grey2,thickness: 1.r,)
                   ),
-                  Search(searchController: searchController)
+                  Search(searchController: searchController),
+                  Column(
+                    children: [
+                      ListView.builder(
+                        padding: EdgeInsetsDirectional.only(top: 15.w),
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: usersList.length,
+                        itemBuilder: (context, index) {
+                          return UsersListview(
+                            image: usersList[index].image,
+                            name:"${usersList[index].firstName} ${usersList[index].lastName}",
+                            email: usersList[index].email,
+                            isFriend: context.read<HomeCubit>().friends.contains(usersList[index]),
+                            onTap: () {
+                              if (context.read<HomeCubit>().friends.contains(usersList[index])) {
+                                aleartDialog(() {
+                                  context.read<HomeCubit>().addOrRemoveFriend(usersList[index]);
+                                  sl<AppNavigator>().pop();
+                                }, context);
+                              }
+                              else {
+                                context.read<HomeCubit>().addOrRemoveFriend(usersList[index]);
+                              }
+                            }
+                          );
+                        },
+                      ),
+                      if(state is GetAllUsersPaginationLoading) const LoadingWidget()
+                    ],
+                  )
                 ],
               ),
-
-              BlocBuilder<HomeCubit, HomeState>(
-                builder: (context, state) {
-                  if (state is GetAllUsersLoading) {
-                    return const LoadingWidget();
-                  }
-                  if (state is GetAllUsersError) {
-                    return AppErrorWidget(message: state.message,);
-                  }
-                  final usersList = context.watch<HomeCubit>().users;
-                  return ListView.builder(
-                    padding: EdgeInsetsDirectional.only(top: 15.w),
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: usersList.length,
-                    itemBuilder: (context, index) {
-                      if (index == usersList.length) {
-                        if (state is GetAllUsersPaginationLoading) {
-                          return const LoadingWidget();
-                        }
-                        else {
-                          return const SizedBox();
-                        }
-                      }
-                      return UsersListview(
-                        image: usersList[index].image,
-                        name:"${usersList[index].firstName} ${usersList[index].lastName}",
-                        email: usersList[index].email,
-                        isFriend: context.read<HomeCubit>().friends.contains(usersList[index]),
-                        onTap: () {
-                          if (context.read<HomeCubit>().friends.contains(usersList[index])) {
-                            aleartDialog(() {
-                              context.read<HomeCubit>().addOrRemoveFriend(usersList[index]);
-                              sl<AppNavigator>().pop();
-                            }, context);
-                          }
-                          else {
-                            context.read<HomeCubit>().addOrRemoveFriend(usersList[index]);
-                          }
-                        }
-                      );
-                    },
-                  );
-                },
-              ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
