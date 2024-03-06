@@ -1,4 +1,3 @@
-import 'package:dubisign_task/core/constant/colors/app_colors.dart';
 import 'package:dubisign_task/core/util/app_navigator.dart';
 import 'package:dubisign_task/core/widgets/error_widget.dart';
 import 'package:dubisign_task/core/widgets/loading_widget.dart';
@@ -10,8 +9,8 @@ import 'package:dubisign_task/features/home/presentation/widgets/users_listview.
 import 'package:dubisign_task/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dubisign_task/core/constant/colors/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
